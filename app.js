@@ -71,6 +71,14 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "steak dinner",
+    category: "dinner",
+    price: 39.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
 
 const sectionCenter = document.querySelector(".section-center");
@@ -78,6 +86,8 @@ const Buttons = document.querySelectorAll(".filter-btn");
 
 window.addEventListener("DOMContentLoaded", function () {
   populatePage(menu);
+  const categories = menu.reduce(scanUniques, ["all"]);
+  console.log(categories);
 });
 
 // This function fetches data from the "menu" list and populates the page with HTML content
@@ -99,7 +109,6 @@ function populatePage(menuItems) {
 
   // Now we combine all items into one big string and use the join method to append them together using empty string as a delimiter
   displayMenu = displayMenu.join("");
-  //console.log(displayMenu);
   sectionCenter.innerHTML = displayMenu;
 }
 
@@ -108,10 +117,7 @@ Buttons.forEach(function (btn) {
   btn.addEventListener("click", function (e) {
     const category = e.currentTarget.dataset.id;
     const newArray = menu.filter(function (item) {
-      if (item.category === category) {
-        //console.log(item.category);
-        return item;
-      }
+      if (item.category === category) return item;
     });
     // We need to re-populate entire page if the category selected is "all"
     if (category === "all") {
@@ -122,3 +128,10 @@ Buttons.forEach(function (btn) {
     }
   });
 });
+
+function scanUniques(values, item) {
+  if (!values.includes(item.category)) {
+    values.push(item.category);
+  }
+  return values;
+}
