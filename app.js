@@ -74,6 +74,7 @@ const menu = [
 ];
 
 const sectionCenter = document.querySelector(".section-center");
+const Buttons = document.querySelectorAll(".filter-btn");
 
 window.addEventListener("DOMContentLoaded", function () {
   populatePage(menu);
@@ -101,3 +102,10 @@ function populatePage(menuItems) {
   //console.log(displayMenu);
   sectionCenter.innerHTML = displayMenu;
 }
+
+// Filtering function
+Buttons.forEach(function (btn) {
+  btn.addEventListener("click", function (e) {
+    console.log(e.currentTarget.dataset);
+  });
+});
