@@ -75,11 +75,13 @@ const menu = [
 
 const sectionCenter = document.querySelector(".section-center");
 
-window.addEventListener("DOMContentLoaded", populatePage);
+window.addEventListener("DOMContentLoaded", function () {
+  populatePage(menu);
+});
 
 // This function fetches data from the "menu" list and populates the page with HTML content
-function populatePage() {
-  let displayMenu = menu.map(function (item) {
+function populatePage(menuItems) {
+  let displayMenu = menuItems.map(function (item) {
     return `<article class="menu-item">
           <img src="${item.img}" alt="menu item" class="photo" />
           <div class="item-info">
