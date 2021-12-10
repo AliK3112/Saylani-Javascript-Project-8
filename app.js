@@ -82,12 +82,15 @@ const menu = [
 ];
 
 const sectionCenter = document.querySelector(".section-center");
-const Buttons = document.querySelectorAll(".filter-btn");
+const buttonContainer = document.querySelector(".btn-container");
 
 window.addEventListener("DOMContentLoaded", function () {
   populatePage(menu);
   const categories = menu.reduce(scanUniques, ["all"]);
-  console.log(categories);
+  const catButtons = categories.map(createButton).join("");
+  buttonContainer.innerHTML = catButtons;
+  const Buttons = document.querySelectorAll(".filter-btn");
+  Buttons.forEach(filterList);
 });
 
 // This function fetches data from the "menu" list and populates the page with HTML content
@@ -113,7 +116,7 @@ function populatePage(menuItems) {
 }
 
 // Filtering function
-Buttons.forEach(function (btn) {
+function filterList(btn) {
   btn.addEventListener("click", function (e) {
     const category = e.currentTarget.dataset.id;
     const newArray = menu.filter(function (item) {
@@ -127,11 +130,18 @@ Buttons.forEach(function (btn) {
       populatePage(newArray);
     }
   });
-});
+}
 
+// Function given to "reduce" method.
+// Takes only unique items and avoids duplicates
 function scanUniques(values, item) {
   if (!values.includes(item.category)) {
     values.push(item.category);
   }
   return values;
+}
+
+// Function given to "map" method for creating buttons
+function createButton(category) {
+  return `<button class="filter-btn" type="button" data-id="${category}">${category}</button>`;
 }
