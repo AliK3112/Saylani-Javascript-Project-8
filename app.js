@@ -106,6 +106,19 @@ function populatePage(menuItems) {
 // Filtering function
 Buttons.forEach(function (btn) {
   btn.addEventListener("click", function (e) {
-    console.log(e.currentTarget.dataset);
+    const category = e.currentTarget.dataset.id;
+    const newArray = menu.filter(function (item) {
+      if (item.category === category) {
+        //console.log(item.category);
+        return item;
+      }
+    });
+    // We need to re-populate entire page if the category selected is "all"
+    if (category === "all") {
+      populatePage(menu);
+    } else {
+      // Otherwise, Populate the newly filtered array
+      populatePage(newArray);
+    }
   });
 });
