@@ -74,3 +74,28 @@ const menu = [
 ];
 
 const sectionCenter = document.querySelector(".section-center");
+
+window.addEventListener("DOMContentLoaded", populatePage);
+
+// This function fetches data from the "menu" list and populates the page with HTML content
+function populatePage() {
+  let displayMenu = menu.map(function (item) {
+    return `<article class="menu-item">
+          <img src="${item.img}" alt="menu item" class="photo" />
+          <div class="item-info">
+            <header>
+              <h4>${item.title}</h4>
+              <h4 class="price">$${item.price}</h4>
+            </header>
+            <p class="item-text">
+              ${item.desc}
+            </p>
+          </div>
+        </article>`;
+  });
+
+  // Now we combine all items into one big string and use the join method to append them together using empty string as a delimiter
+  displayMenu = displayMenu.join("");
+  //console.log(displayMenu);
+  sectionCenter.innerHTML = displayMenu;
+}
